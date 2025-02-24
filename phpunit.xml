@@ -12,7 +12,6 @@
     <source>
         <include>
             <directory suffix=".php">./src</directory>
-            <file>./upload.php</file>
         </include>
     </source>
 </phpunit>

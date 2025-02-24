@@ -38,7 +38,12 @@
         "analyse": "phpstan analyse",
         "format": "pint",
         "format:check": "pint --test",
-        "serve": "php -c php.ini -S localhost:8000",
+        "serve": "php -c php.ini -S localhost:8000 -t public",
+        "clean": "find uploads resized -type f ! -name '.gitkeep' -delete",
+        "setup": [
+            "ln -sf ../resized public/resized",
+            "ln -sf ../uploads public/uploads"
+        ],
         "quality": [
             "@format:check",
             "@analyse",

@@ -1,5 +1,9 @@
 {
     "preset": "psr12",
+    "exclude": [
+        "vendor",
+        "var"
+    ],
     "rules": {
         "array_syntax": {
             "syntax": "short"

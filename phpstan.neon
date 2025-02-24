@@ -1,8 +1,7 @@
 parameters:
     level: 8
     paths:
-        - index.php
-        - upload.php
+        - public/
         - src/
         - tests/
 
