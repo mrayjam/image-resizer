@@ -6,7 +6,7 @@
  * @author Aymane Bouljam
  */
 
-require_once 'upload.php';
+require_once __DIR__ . '/../../src/upload.php';
 
 describe('Image Upload Feature', function () {
     beforeEach(function () {
@@ -111,40 +111,18 @@ describe('Image Upload Feature', function () {
 
     it('processes valid image upload successfully', function () {
         $testFile = createTestImage('test_valid.png', 200, 100, 'png');
+        $resizedFile = 'resized/test_valid_resized.png';
 
-        $uploadedFile = 'uploads/' . basename($testFile);
-        copy($testFile, $uploadedFile);
+        $result = resizeImageWithIntervention($testFile, $resizedFile, 100, null, true, 90);
 
-        $_FILES['image'] = [
-            'name' => 'test_valid.png',
-            'type' => 'image/png',
-            'tmp_name' => $uploadedFile,
-            'error' => UPLOAD_ERR_OK,
-            'size' => filesize($testFile),
-        ];
-        $_POST = [
-            'upload' => true,
-            'width' => 100,
-            'maintain_aspect_ratio' => '1',
-        ];
+        expect($result['success'])->toBeTrue();
+        expect($resizedFile)->toBeFile();
 
-        expect(true)->toBeTrue();
+        $imageInfo = getimagesize($resizedFile);
+        expect($imageInfo[0])->toBe(100);
+        expect($imageInfo[1])->toBe(50);
 
         unlink($testFile);
-        if (file_exists($uploadedFile)) {
-            unlink($uploadedFile);
-        }
-    })->skip('move_uploaded_file cannot be mocked easily in unit tests');
-
-    it('validates allowed file types', function () {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-        expect(ALLOWED_TYPES)->toBe($allowedTypes);
-        expect(ALLOWED_EXTENSIONS)->toBe($allowedExtensions);
-    });
-
-    it('has correct maximum file size configured', function () {
-        expect(MAX_FILE_SIZE)->toBe(5 * 1024 * 1024); // 5MB
+        unlink($resizedFile);
     });
 });

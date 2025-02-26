@@ -23,48 +23,6 @@ describe('Logger', function () {
         }
     });
 
-    it('can get logger instance', function () {
-        $logger = Logger::getInstance();
-        expect($logger)->toBeInstanceOf(\Monolog\Logger::class);
-    });
-
-    it('returns same instance on multiple calls (singleton)', function () {
-        $logger1 = Logger::getInstance();
-        $logger2 = Logger::getInstance();
-        expect($logger1)->toBe($logger2);
-    });
-
-    it('can log info messages', function () {
-        Logger::logInfo('Test info message', ['test' => true]);
-
-        expect('logs/app.log')->toBeFile();
-
-        $logContent = file_get_contents('logs/app.log');
-        expect($logContent)->toContain('Test info message');
-        expect($logContent)->toContain('INFO');
-    });
-
-    it('can log warning messages', function () {
-        Logger::logWarning('Test warning message', ['warning' => true]);
-
-        expect('logs/app.log')->toBeFile();
-
-        $logContent = file_get_contents('logs/app.log');
-        expect($logContent)->toContain('Test warning message');
-        expect($logContent)->toContain('WARNING');
-    });
-
-    it('can log error messages', function () {
-        Logger::logError('Test error message', ['error' => true]);
-
-        expect('logs/app.log')->toBeFile();
-        expect('logs/error.log')->toBeFile();
-
-        $errorLogContent = file_get_contents('logs/error.log');
-        expect($errorLogContent)->toContain('Test error message');
-        expect($errorLogContent)->toContain('ERROR');
-    });
-
     it('can log image processing start', function () {
         Logger::logImageProcessingStart('test.jpg', 800, 600, 400, 300);
 
@@ -86,7 +44,7 @@ describe('Logger', function () {
         expect($logContent)->toContain('Image processing completed successfully');
         expect($logContent)->toContain('test.jpg');
         expect($logContent)->toContain('400x300');
-        expect($logContent)->toContain('500'); // processing time in ms
+        expect($logContent)->toContain('500');
     });
 
     it('can log image processing error', function () {

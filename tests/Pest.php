@@ -97,7 +97,7 @@ function cleanupTestFiles(): void
 function createTestImage(string $filename, int $width = 100, int $height = 100, string $type = 'png'): string
 {
     $image = imagecreatetruecolor($width, $height);
-    $color = imagecolorallocate($image, 255, 0, 0); // Red color
+    $color = imagecolorallocate($image, 255, 0, 0);
     imagefill($image, 0, 0, $color);
 
     $path = "uploads/{$filename}";

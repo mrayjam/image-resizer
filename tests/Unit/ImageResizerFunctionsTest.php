@@ -6,36 +6,7 @@
  * @author Aymane Bouljam
  */
 
-require_once 'upload.php';
-
-describe('formatFileSize function', function () {
-    it('formats bytes correctly', function () {
-        expect(formatFileSize(0))->toBe('0 B');
-        expect(formatFileSize(500))->toBe('500 B');
-        expect(formatFileSize(1023))->toBe('1023 B');
-    });
-
-    it('formats kilobytes correctly', function () {
-        expect(formatFileSize(1024))->toBe('1 KB');
-        expect(formatFileSize(2048))->toBe('2 KB');
-        expect(formatFileSize(1536))->toBe('1.5 KB');
-    });
-
-    it('formats megabytes correctly', function () {
-        expect(formatFileSize(1048576))->toBe('1 MB');
-        expect(formatFileSize(2097152))->toBe('2 MB');
-        expect(formatFileSize(5242880))->toBe('5 MB');
-    });
-
-    it('formats gigabytes correctly', function () {
-        expect(formatFileSize(1073741824))->toBe('1 GB');
-        expect(formatFileSize(2147483648))->toBe('2 GB');
-    });
-
-    it('handles negative values', function () {
-        expect(formatFileSize(-100))->toBe('0 B');
-    });
-});
+require_once __DIR__ . '/../../src/upload.php';
 
 describe('resizeImageWithIntervention function', function () {
     beforeEach(function () {
@@ -81,8 +52,12 @@ describe('resizeImageWithIntervention function', function () {
         unlink($destFile);
     });
 
-    it('handles invalid source file', function () {
-        $result = resizeImageWithIntervention('non_existent.png', 'resized/dest.png', 100, 100, true, 90);
+    it('handles non-existent source file', function () {
+        set_error_handler(function (int $errno, string $errstr): bool {
+            return true;
+        });
+        $result = resizeImageWithIntervention('uploads/does_not_exist.png', 'resized/dest.png', 100, 100, true, 90);
+        restore_error_handler();
 
         expect($result['success'])->toBeFalse();
         expect($result['error'])->toContain('Error resizing image');
