@@ -1,0 +1,68 @@
+# Composer
+/vendor/
+composer.lock
+
+# Uploaded files 
+/uploads/*
+!/uploads/.gitkeep
+
+# Resized images (generated files)
+/resized/*
+!/resized/.gitkeep
+
+# Logs
+/logs/*
+!/logs/.gitkeep
+
+# Cache directories
+/var/
+/.phpunit.cache/
+/.pest/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# PHP
+*.log
+.env
+.env.local
+.env.production
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# PHPStan
+/phpstan.neon.dist
+
+# Coverage reports
+/coverage/
+/coverage.xml
+/.phpunit.result.cache
+
+# Node.js (if you add frontend tools later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Build artifacts
+/build/
+/dist/
