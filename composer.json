@@ -1,0 +1,48 @@
+{
+    "name": "php-image-resizer/mini-service",
+    "description": "A lightweight PHP image resizer service with support for JPG, PNG, GIF, and WebP formats",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aymane Bouljam"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-gd": "*",
+        "intervention/image": "^3.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.0",
+        "phpstan/phpstan": "^1.10",
+        "laravel/pint": "^1.13",
+        "monolog/monolog": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ImageResizer\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "test:coverage": "pest --coverage",
+        "analyse": "phpstan analyse",
+        "format": "pint",
+        "format:check": "pint --test",
+        "serve": "php -c php.ini -S localhost:8000",
+        "quality": [
+            "@format:check",
+            "@analyse",
+            "@test"
+        ]
+    }
+}
