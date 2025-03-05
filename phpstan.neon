@@ -1,0 +1,23 @@
+parameters:
+    level: 8
+    paths:
+        - index.php
+        - upload.php
+        - src/
+        - tests/
+
+    excludePaths:
+        - vendor/
+        - test-image-functions.php
+
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - '#Undefined variable: \$this#'
+        - '#Cannot access offset#'
+        - '#Parameter .* expects int, int<0, max>\|false given#'
+        - '#Argument of an invalid type .* supplied for foreach#'
+
+    bootstrapFiles:
+        - vendor/autoload.php
+
+    tmpDir: var/cache/phpstan
